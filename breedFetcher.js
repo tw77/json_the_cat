@@ -1,10 +1,9 @@
-const args = process.argv;
-
 const request = require('request');
-request('https://api.thecatapi.com/v1/breeds/search?q=' + args[2], (error, response, body) => {
+const breedName = process.argv[2];
+
+request('https://api.thecatapi.com/v1/breeds/search?q=' + breedName, (error, response, body) => {
   if (error) return console.log(error);
   const data = JSON.parse(body);
-  if (data.length === undefined) console.log(data.message);
-  else if (data.length === 0) console.log('Sorry, requested breed not found.');
+  if (data.length === 0) console.log('Sorry, requested breed not found.');
   else console.log(data[0].description);
 });
